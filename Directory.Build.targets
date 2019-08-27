@@ -34,6 +34,7 @@
       <PackageVersion>$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)$(GitSemVerDashLabel)$(VersionMetadataPlusLabel)</PackageVersion>
     </PropertyGroup>
 
+    <Message Condition="$(CI)" Importance="high" Text="##vso[build.updatebuildnumber]$(PackageVersion)"/>
   </Target>
 
   <Target Name="DeployPackage" AfterTargets="AfterBuild;Pack" DependsOnTargets="Pack">
