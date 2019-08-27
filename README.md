@@ -88,4 +88,4 @@ public class MyCodeGenAnalyzer : DiagnosticAnalyzer
 }
 ```
 
-Unless disabled by setting the MSBuild property `EnableDefaultOutputPathsAnalyzerSettings` to `false`, all output properties from the [.NET SDK](https://github.com/dotnet/sdk/blob/master/src/Tasks/Microsoft.NET.Build.Tasks/targets/Microsoft.NET.DefaultOutputPaths.targets) are included as analzer settings since they are generally useful.
+Unless disabled by setting the MSBuild property `EnableDefaultOutputPathsAnalyzerSettings` to `false`, all output properties from the [.NET SDK](https://github.com/dotnet/sdk/blob/master/src/Tasks/Microsoft.NET.Build.Tasks/targets/Microsoft.NET.DefaultOutputPaths.targets) are included as analyzer settings since they are generally useful.
