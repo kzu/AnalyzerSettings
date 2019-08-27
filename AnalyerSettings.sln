@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29209.152
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{13B669BE-BB05-4DDF-9536-439F39A36129}") = "AnalyerSettings", "AnalyerSettings.msbuildproj", "{96155C5E-77BE-4DEA-9F21-F989CA84EB63}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{98035D5F-87F3-4666-8B7C-5B9BD5C1EB9A}"
+	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{96155C5E-77BE-4DEA-9F21-F989CA84EB63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96155C5E-77BE-4DEA-9F21-F989CA84EB63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96155C5E-77BE-4DEA-9F21-F989CA84EB63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96155C5E-77BE-4DEA-9F21-F989CA84EB63}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F2CBC415-79E6-47C2-9EC7-759AF5B8704D}
+	EndGlobalSection
+EndGlobal
