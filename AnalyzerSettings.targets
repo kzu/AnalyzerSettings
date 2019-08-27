@@ -5,21 +5,13 @@
     <!-- Whether to include the properties set by 
          https://github.com/dotnet/sdk/blob/master/src/Tasks/Microsoft.NET.Build.Tasks/targets/Microsoft.NET.DefaultOutputPaths.targets 
          as analyzer settings by default -->
-    <EnableDefaultOutputPathsAnalyzerSettings Condition="'$(EnableDefaultAnalyzerSettings)' == ''">true</EnableDefaultOutputPathsAnalyzerSettings>
+    <EnableDefaultOutputPathsAnalyzerSettings Condition="'$(EnableDefaultOutputPathsAnalyzerSettings)' == ''">true</EnableDefaultOutputPathsAnalyzerSettings>
 
     <!-- When writing the .ini file, take into consideration the different line endings depending on the OS -->
     <_NewLineSeparator Condition="'$(OS)' == 'Windows_NT'">%0d</_NewLineSeparator>
     <_NewLineSeparator>$(_NewLineSeparator)%0a</_NewLineSeparator>
   </PropertyGroup>
 
-  <!-- Persists settings for the code fixers to know the intermediate output path or other values from the project.
-       Unlike the other "private" targets that start with "_", this target is intended for public consumption in 
-       BeforeTargets, so that dynamically calculated @(AutoCodeFixSetting) can be added before the save happens. 
-       
-       Note, however, that the incremental build will only consider $(MSBuildAllProjects) by default. If the custom 
-       settings are calculated from other files that need to be added to the incremental runs of this target, append 
-       them to the $(AdditionalAutoCodeFixSettingsInputs) property.
-  -->
   <Target Name="GenerateAnalyzerSettings"
           BeforeTargets="CoreCompile"
           DependsOnTargets="PrepareForBuild;CoreGenerateAnalyzerSettings" />
