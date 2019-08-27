@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.Build.NoTargets/1.0.80" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Author>kzu</Author>
+    <Title>AnalyzerSettings</Title>
+    <Description>Provides MSBuild-driven settings that analyzers can easily access via an additional file named AnalyzerSettings.ini.</Description>
+
+    <PackageProjectUrl>https://github.com/kzu/AnalyzerSettings</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>roslyn codegen analyzer msbuild</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GitInfo" Version="2.0.20" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="AnalyzerSettings.targets" Pack="true" PackagePath="build\AnalyzerSettings.targets" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,48 @@
+<Project>
+  
+  <PropertyGroup>
+    <GitBranch Condition="'$(SYSTEM_PULLREQUEST_TARGETBRANCH)' != ''">$(SYSTEM_PULLREQUEST_TARGETBRANCH)</GitBranch>
+    <GitBranch Condition="'$(SYSTEM_PULLREQUEST_TARGETBRANCH)' == '' and '$(BUILD_SOURCEBRANCHNAME)' != ''">$(BUILD_SOURCEBRANCHNAME)</GitBranch>
+  </PropertyGroup>
+
+  <Target Name="SetVersion"
+          BeforeTargets="GenerateNuspec;Pack"
+          DependsOnTargets="GitVersion"
+          Returns="$(PackageVersion)"
+          Condition="'$(GitInfoImported)' == 'true' And '$(ExcludeRestorePackageImports)' != 'true'">
+
+    <PropertyGroup>
+      <!-- We don't build stable versions from non-master branches. But when the version came from the branch, we leave it as-is. -->
+      <GitSemVerDashLabel Condition="'$(GitBranch)' != 'master' and '$(GitSemVerDashLabel)' == '' and '$(GitSemVerSource)' != 'Branch'">-$(GitBranch)</GitSemVerDashLabel>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <!-- Branch metadata always present for non-master branches, unless the existing label matches the branch.
+           For a versioned branch, it doesn't make sense either. -->
+      <VersionMetadata Include="$(GitBranch)" Condition="'$(GitBranch)' != 'master' and '$(GitSemVerSource)' != 'Branch' and '$(GitSemVerDashLabel)' != '-$(GitBranch)'" />
+
+      <VersionMetadata Condition="$(CI) and '$(BUILD_REASON)' == 'PullRequest'"
+                       Include="pr.$(SYSTEM_PULLREQUEST_PULLREQUESTNUMBER)"/>
+      <VersionMetadata Include="sha.$(GitCommit)" Condition="'$(GitCommit)' != ''"/>
+      <VersionMetadata Condition="$(CI)"
+                       Include="build.$(BUILD_BUILDID)"/>
+    </ItemGroup>
+
+    <PropertyGroup>
+      <VersionMetadataLabel>@(VersionMetadata -> '%(Identity)', '-')</VersionMetadataLabel>
+      <VersionMetadataPlusLabel Condition="'$(VersionMetadataLabel)' != ''">+$(VersionMetadataLabel)</VersionMetadataPlusLabel>
+      <GitSemVerDashLabel Condition="'$(GitSemVerDashLabel)' != '' and '$(GitCommits)' != '0'">$(GitSemVerDashLabel).$(GitCommits)</GitSemVerDashLabel>
+
+      <PackageVersion>$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)$(GitSemVerDashLabel)$(VersionMetadataPlusLabel)</PackageVersion>
+    </PropertyGroup>
+
+  </Target>
+
+  <Target Name="DeployPackage" AfterTargets="AfterBuild;Pack" DependsOnTargets="Pack">
+    <Message Text="Nuking $(LocalAppData)\NuGet\v3-cache)" Condition="Exists('$(LocalAppData)\NuGet\v3-cache)')" Importance="high" />
+    <Exec Command='rd "$(LocalAppData)\NuGet\v3-cache)" /q /s' Condition="Exists('$(LocalAppData)\NuGet\v3-cache)')" />
+    <Message Text="Nuking $(NuGetPackageRoot)$(PackageId.ToLowerInvariant())" Condition="Exists('$(NuGetPackageRoot)$(PackageId.ToLowerInvariant())')" Importance="high" />
+    <Exec Command='rd "$(NuGetPackageRoot)$(PackageId.ToLowerInvariant())" /q /s' Condition="Exists('$(NuGetPackageRoot)$(PackageId.ToLowerInvariant())')" />
+  </Target>
+
+</Project>
