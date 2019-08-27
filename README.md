@@ -1,5 +1,12 @@
 # AnalyzerSettings from MSBuild
 
+[![Version](https://img.shields.io/nuget/vpre/AnalyzerSettings.svg)](https://www.nuget.org/packages/AnalyzerSettings)
+[![Downloads](https://img.shields.io/nuget/dt/AnalyzerSettings)](https://www.nuget.org/packages/AnalyzerSettings)
+[![Build Status](https://dev.azure.com/kzu/oss/_apis/build/status/AnalyzerSettings?branchName=master)](http://build.azdo.io/kzu/oss/28)
+[![License](https://img.shields.io/github/license/kzu/AnalyzerSettings.svg)](LICENSE)
+[![CI NuGet Feed](https://img.shields.io/badge/nuget-ci_feed-%23004880?logo=NuGet)](https://kzu.blob.core.windows.net/nuget/index.json)
+
+
 Analyzers typically need some sort of configuration to tweak how they work. 
 In order to avoid inventing your own mecanism for settings, the 
 [AnalyzerSettings](https://www.nuget.org/packages/AnalyzerSettings) package 
