@@ -54,7 +54,8 @@ public class MyCodeGenAnalyzer : DiagnosticAnalyzer
         // Added some extra precautions in parsing each line.
         // You could also filter lines for settings starting with your known ones only...
         return settingsFile
-            .GetText().Lines[0].ToString()
+            .GetText()
+            .Lines.Select(line => line.ToString())
             .Where(line => !string.IsNullOrEmpty(line))
             .Select(line => line.Split('='))
             .Where(pair => pair.Length == 2)
